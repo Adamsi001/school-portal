@@ -1,3 +1,4 @@
+from datetime import timezone
 from django.db import models
 
 from core.models import Session
@@ -47,6 +48,17 @@ class CourseRegistration(models.Model):
 
     def __str__(self):
         return f"{self.student} - {self.session} - {self.semester}"
+
+    def approve(self):
+        self.is_approved = True
+        self.date_approved = timezone.now()
+
+        result = Result.objects.create(student = self.student, session=self.session, semester=self.semester).save()
+        
+        for course in self.courses:
+            courseResult = CourseResult.objects.create(student=self.student, course=course, resultSheet = result).save()
+
+        self.save()
 
 class Result(models.Model):
     student = models.ForeignKey(Student, related_name='results', on_delete=models.CASCADE)    
