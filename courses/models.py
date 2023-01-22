@@ -35,7 +35,7 @@ class CourseRegistration(models.Model):
     
     courses = models.ManyToManyField(Course, related_name="registrations")
 
-    is_approved = models.BooleanField(default=True)
+    is_approved = models.BooleanField(default=False)
     date_approved = models.DateField(blank=True, null=True)
 
     date_created = models.DateField(auto_now_add=True)
@@ -66,7 +66,7 @@ class Result(models.Model):
     session = models.ForeignKey(Session, related_name='results', on_delete=models.CASCADE)    
     semester = models.IntegerField()
     
-    is_approved = models.BooleanField(default=True)
+    is_approved = models.BooleanField(default=False)
     date_approved = models.DateField(blank=True, null=True)
 
     date_created = models.DateField(auto_now_add=True)
