@@ -48,13 +48,32 @@ class CourseRegistration(models.Model):
     def __str__(self):
         return f"{self.student} - {self.session} - {self.semester}"
 
+class Result(models.Model):
+    student = models.ForeignKey(Student, related_name='results', on_delete=models.CASCADE)    
+
+    session = models.ForeignKey(Session, related_name='results', on_delete=models.CASCADE)    
+    semester = models.IntegerField()
+    
+    is_approved = models.BooleanField(default=True)
+    date_approved = models.DateField(blank=True, null=True)
+
+    date_created = models.DateField(auto_now_add=True)
+    date_modified = models.DateField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.student} - {self.session} - {self.semester}"
+
+    class Meta:
+        verbose_name = 'Result'
+        verbose_name_plural = 'Results'
+
 MAX_CA_SCORE = 40.00
 MAX_EXAM_SCORE = 60.00
 class CourseResult(models.Model):
     student = models.ForeignKey(Student, related_name='course_results', on_delete=models.CASCADE)    
     course = models.ForeignKey(Course, related_name='results', on_delete=models.CASCADE)
 
-    # resultSheet = models.ForeignKey(Result, related_name='courses', on_delete=models.CASCADE)
+    resultSheet = models.ForeignKey(Result, related_name='courses', on_delete=models.CASCADE)
 
     ca_score = models.DecimalField(max_digits=4, decimal_places=2, default=0)
     exam_score = models.DecimalField(max_digits=5, decimal_places=2, default=0)
