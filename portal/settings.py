@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'djoser',
+
+    # local
+    'faculties',
 ]
 
 MIDDLEWARE = [
@@ -133,3 +136,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # CORS HEADERS
 CORS_ALLOW_ALL_ORIGINS = True
+
