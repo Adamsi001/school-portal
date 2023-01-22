@@ -45,6 +45,7 @@ INSTALLED_APPS = [
 
     # local
     'faculties',
+    'core',
 ]
 
 MIDDLEWARE = [
