@@ -87,8 +87,8 @@ class CourseResult(models.Model):
 
     resultSheet = models.ForeignKey(Result, related_name='courses', on_delete=models.CASCADE)
 
-    ca_score = models.DecimalField(max_digits=4, decimal_places=2, default=0)
-    exam_score = models.DecimalField(max_digits=5, decimal_places=2, default=0)
+    ca_score = models.DecimalField(max_digits=4, decimal_places=2, blank=True, null=True)
+    exam_score = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
 
     # is_approved = models.BooleanField(default=True)
     # date_approved = models.DateField(blank=True, null=True)
