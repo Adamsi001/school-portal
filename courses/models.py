@@ -48,3 +48,30 @@ class CourseRegistration(models.Model):
     def __str__(self):
         return f"{self.student} - {self.session} - {self.semester}"
 
+MAX_CA_SCORE = 40.00
+MAX_EXAM_SCORE = 60.00
+class CourseResult(models.Model):
+    student = models.ForeignKey(Student, related_name='course_results', on_delete=models.CASCADE)    
+    course = models.ForeignKey(Course, related_name='results', on_delete=models.CASCADE)
+
+    # resultSheet = models.ForeignKey(Result, related_name='courses', on_delete=models.CASCADE)
+
+    ca_score = models.DecimalField(max_digits=4, decimal_places=2, default=0)
+    exam_score = models.DecimalField(max_digits=5, decimal_places=2, default=0)
+
+    # is_approved = models.BooleanField(default=True)
+    # date_approved = models.DateField(blank=True, null=True)
+
+    date_created = models.DateField(auto_now_add=True)
+    date_modified = models.DateField(auto_now=True)
+
+    class Meta:
+        verbose_name = 'Course Result'
+        verbose_name_plural = 'Courses Results'
+
+    def __str__(self):
+        return f"{self.course} - {self.student}"
+
+    def save(self, *args, **kwargs):
+        if (self.ca <= MAX_CA_SCORE) and (self.exam_score <= MAX_EXAM_SCORE):
+            super().save(*args, **kwargs)
