@@ -21,6 +21,7 @@ urlpatterns = [
     path('api/v1/auth', include('rest_framework.urls')),
     path('api/v1/djoser-auth', include('djoser.urls')),
 
+    path('api/v1/users/', include('users.urls')),
     path('api/v1/', include('faculties.urls')),
     path('api/v1/', include('core.urls')),
 ]
