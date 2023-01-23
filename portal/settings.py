@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'faculties',
     'core',
     'courses',
+    'announcements',
     
 ]
 
