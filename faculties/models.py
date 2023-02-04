@@ -18,7 +18,7 @@ class Department(models.Model):
     title = models.CharField(max_length=20)
     abbrevation = models.CharField(max_length=20)
     short_code = models.CharField(max_length=20)
-    Faculty = models.ForeignKey('Faculty', related_name='departments', on_delete=models.CASCADE)
+    faculty = models.ForeignKey('Faculty', related_name='departments', on_delete=models.CASCADE)
 
     date_created = models.DateField(auto_now_add=True)
     date_modified = models.DateField(auto_now=True)
