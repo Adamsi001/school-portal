@@ -15,8 +15,8 @@ class Announcement(models.Model):
 
     is_active = models.BooleanField(default=True)
     
-    date_created = models.DateField(auto_now_add=True)
-    date_modified = models.DateField(auto_now=True)
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_modified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.subject
