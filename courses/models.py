@@ -2,7 +2,8 @@ from datetime import timezone
 from django.db import models
 
 from core.models import Session
-from users.models import Lecturer, Student
+# from users.models import Lecturer, Student
+from users.models import BaseUser
 
 # Create your models here.
 
@@ -13,7 +14,7 @@ class Course(models.Model):
     description = models.CharField(max_length=300)
     semester = models.IntegerField()
     
-    lecturers = models.ManyToManyField(Lecturer, related_name="courses")
+    lecturers = models.ManyToManyField(BaseUser, related_name="courses")
     
     is_active = models.BooleanField(default=True)
 
@@ -28,7 +29,7 @@ class Course(models.Model):
         return self.title
 
 class CourseRegistration(models.Model):
-    student = models.ForeignKey(Student, related_name='course_registrations', on_delete=models.CASCADE)    
+    student = models.ForeignKey(BaseUser, related_name='course_registrations', on_delete=models.CASCADE)    
 
     session = models.ForeignKey(Session, related_name='course_registrations', on_delete=models.CASCADE)    
     semester = models.IntegerField()
@@ -61,7 +62,7 @@ class CourseRegistration(models.Model):
         self.save()
 
 class Result(models.Model):
-    student = models.ForeignKey(Student, related_name='results', on_delete=models.CASCADE)    
+    student = models.ForeignKey(BaseUser, related_name='results', on_delete=models.CASCADE)    
 
     session = models.ForeignKey(Session, related_name='results', on_delete=models.CASCADE)    
     semester = models.IntegerField()
@@ -82,7 +83,7 @@ class Result(models.Model):
 MAX_CA_SCORE = 40.00
 MAX_EXAM_SCORE = 60.00
 class CourseResult(models.Model):
-    student = models.ForeignKey(Student, related_name='course_results', on_delete=models.CASCADE)    
+    student = models.ForeignKey(BaseUser, related_name='course_results', on_delete=models.CASCADE)    
     course = models.ForeignKey(Course, related_name='results', on_delete=models.CASCADE)
 
     resultSheet = models.ForeignKey(Result, related_name='courses', on_delete=models.CASCADE)
