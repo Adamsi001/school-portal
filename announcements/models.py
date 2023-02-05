@@ -10,8 +10,8 @@ class Announcement(models.Model):
     body = models.CharField(max_length=2000)
 
     created_by = models.ForeignKey(BaseUser, related_name='myAnnouncements', on_delete=models.CASCADE)
-    sent_to = models.ManyToManyField(BaseUser, related_name='announcements')
-    seen_by = models.ManyToManyField(BaseUser, related_name='read_announcements')
+    sent_to = models.ManyToManyField(BaseUser, related_name='announcements', blank=True)
+    seen_by = models.ManyToManyField(BaseUser, related_name='read_announcements', blank=True)
 
     is_active = models.BooleanField(default=True)
     
