@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     #  third party
     'corsheaders',
     'rest_framework',
+    'rest_framework.authtoken',
     'djoser',
 
     # local
@@ -144,3 +145,10 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 # CUSTOM USER MODEL
 AUTH_USER_MODEL = 'users.BaseUser'
+
+# REST FRAMEWORK
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        )
+}
