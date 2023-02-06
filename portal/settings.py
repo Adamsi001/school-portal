@@ -152,3 +152,10 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
         )
 }
+
+# DJOSER
+DJOSER = {
+    'SERIALIZERS': {
+        'current_user': 'users.serializers.UserSerializer',
+    },
+}
