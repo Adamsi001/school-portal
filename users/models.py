@@ -54,8 +54,8 @@ class BaseUser(AbstractBaseUser, PermissionsMixin):
         ADMIN = ADMIN_ENUM_VALUE, ADMIN_ENUM_VALUE
 
     class StaffTypes(models.TextChoices):
-        LECTURER = 'lecturer', 'lecturer'
-        STUDENT_ADVISER = 'student_adviser', 'student adviser'
+        ACADEMIC = 'academic', 'academic'
+        NON_ACADEMIC = 'non-academic', 'non-academic'
         OTHERS = 'other', 'other'
     
     class GenderTypes(models.TextChoices):
@@ -83,7 +83,10 @@ class BaseUser(AbstractBaseUser, PermissionsMixin):
     level = models.ForeignKey(Level, related_name='students', on_delete=models.CASCADE, blank=True, null=True)
     matric_number = models.CharField(max_length=20, blank=True, null=True)
     
-    is_staff = models.BooleanField(default=False) #django's default field for identifying admins
+    is_staff = models.BooleanField(default=False) # Django's default field for identifying admins
+
+    is_student_adviser = models.BooleanField(default=False)
+    is_lecturer = models.BooleanField(default=False)
 
     staff_type = models.CharField(
         max_length=30, choices=StaffTypes.choices, blank=True, null=True)
@@ -160,11 +163,11 @@ class Staff(BaseUser):
 # ADVISER
 class StudentAdviserManager(BaseUserManager):
     def get_queryset(self, *args, **kwargs):
-        return Staff.objects.filter(user_type=BaseUser.UserTypes.STAFF, staff_type=BaseUser.StaffTypes.STUDENT_ADVISER)
+        return Staff.objects.filter(user_type=BaseUser.UserTypes.STAFF, is_student_adviser=True)
 
 class StudentAdviser(BaseUser):
     user_type = BaseUser.UserTypes.STAFF
-    staff_type = BaseUser.StaffTypes.STUDENT_ADVISER
+    staff_type = BaseUser.StaffTypes.ACADEMIC
     objects = StudentAdviserManager()
 
     class Meta:
@@ -173,11 +176,11 @@ class StudentAdviser(BaseUser):
 # LECTURER
 class LecturerManager(BaseUserManager):
     def get_queryset(self, *args, **kwargs):
-        return Staff.objects.filter(user_type=BaseUser.UserTypes.STAFF, staff_type=BaseUser.StaffTypes.LECTURER)
+        return Staff.objects.filter(user_type=BaseUser.UserTypes.STAFF, is_lecturer=True)
 
 class Lecturer(BaseUser):
     user_type = BaseUser.UserTypes.STAFF
-    staff_type = BaseUser.StaffTypes.LECTURER
+    staff_type = BaseUser.StaffTypes.ACADEMIC
     objects = LecturerManager()
 
     class Meta:

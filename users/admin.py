@@ -10,14 +10,15 @@ class UserAdmin(BaseUserAdmin):
     form = UserChangeForm
     model = BaseUser
     list_display = ('email', 'is_active', "user_type",)
-    list_filter = ('is_active', "user_type", "staff_type",)
+    list_filter = ('is_active', "user_type", "staff_type",
+                   "is_lecturer", "is_student_adviser",)
     fieldsets = (
         ('Basic', {'fields': ('email', 'password',)}),
         ('User Information', {
-         'fields': ( 'first_name', 'middle_name', 'last_name', 'gender',)}),
+         'fields': ('first_name', 'middle_name', 'last_name', 'gender',)}),
         ('User Type', {
-            'fields': ('user_type', 'staff_type',)}
-        ),
+            'fields': ('user_type', 'staff_type', "is_lecturer", "is_student_adviser",)}
+         ),
         ('Permissions', {'fields': ('is_staff',
          'is_active', 'is_superuser', 'user_permissions',)}),
         ('Groups', {'fields': ('groups',)}),
@@ -27,7 +28,7 @@ class UserAdmin(BaseUserAdmin):
             'fields': ('email', 'first_name', 'middle_name', 'last_name', 'gender',)}
          ),
         ('User Type', {
-            'fields': ('user_type', 'staff_type',)}
+            'fields': ('user_type', 'staff_type', "is_lecturer", "is_student_adviser",)}
          ),
         (None, {
             'fields': ('faculty', 'department', 'level',)}
@@ -36,7 +37,7 @@ class UserAdmin(BaseUserAdmin):
             'fields': ('password1', 'password2',)}
          ),
         (None, {
-            'fields': ( 'is_active',)}
+            'fields': ('is_active',)}
          ),
     )
     search_fields = ('email',)
