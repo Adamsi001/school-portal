@@ -8,7 +8,7 @@ router.register(r'admins', AdminViewSet)
 router.register(r'students', StudentViewSet)
 router.register(r'staff', StaffViewSet)
 router.register(r'lecturers', LecturerViewSet)
-router.register(r'student-adviser', StudentAdviserViewSet)
+router.register(r'student-advisers', StudentAdviserViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
