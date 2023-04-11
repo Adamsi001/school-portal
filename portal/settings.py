@@ -168,4 +168,4 @@ STATIC_ROOT =os.path.join(BASE_DIR, 'staticfiles')
 
 
 # CSRF TRUSTED ORIGINS
-CSRF_TRUSTED_ORIGINS = ["*"]
+CSRF_TRUSTED_ORIGINS = ["https://sch-portal-be.up.railway.app/",]
