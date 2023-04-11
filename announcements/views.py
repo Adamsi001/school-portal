@@ -22,6 +22,7 @@ class AnnouncementViewSet(viewsets.ModelViewSet):
         user = self.request.user  # current user
         announcement = serializer.save(created_by=user)
 
+        # automatically send student advisers' messages to all students under them
         if user.is_student_adviser:
             announcement.sent_to.add(*User.objects.filter(user_type=User.UserTypes.STUDENT,
                                      department=user.department, faculty=user.faculty, level=user.level))
